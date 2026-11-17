@@ -1,0 +1,160 @@
+{
+  "file_info": {
+    "file_name": "sample_server.log",
+    "file_size_kb": 3.12,
+    "analyzed_at": "2026-11-18T01:38:20.127681",
+    "duration_seconds": 0.09
+  },
+  "summary": {
+    "total_logs": 35,
+    "total_windows": 5,
+    "flagged_windows": 1,
+    "critical_incidents": 1,
+    "total_incidents": 1,
+    "severity_distribution": {
+      "CRITICAL": 3,
+      "ERROR": 9,
+      "WARNING": 4,
+      "INFO": 19,
+      "DEBUG": 0
+    }
+  },
+  "incidents": [
+    {
+      "incident_id": "INC-001",
+      "time_window": "2026-11-18 10:03:00 to 10:04:00",
+      "title": "Database Connection Pool Exhaustion",
+      "severity": "critical",
+      "confidence": "high",
+      "probable_root_cause": "Database connection pool was saturated, leading to cascading request timeouts and worker crashes.",
+      "explanation": "Observed 9 errors and 3 critical failures during window 2026-11-18 10:03:00 to 10:04:00. Applications failed to checkout database connections.",
+      "recommended_actions": [
+        "Increase max_connections in the database configuration.",
+        "Audit connection pool leakages in application repositories.",
+        "Deploy PgBouncer or connection pooling proxy.",
+        "Review slow-running transactions locking database connections."
+      ],
+      "metrics": {
+        "total_logs": 13,
+        "error_count": 9,
+        "critical_count": 3,
+        "warning_count": 1
+      },
+      "detector_triggers": "[Rule] Critical errors observed (3); High error count (9); High error ratio (92.3%) | [IsolationForest] Multivariate feature anomaly (score=-0.085)",
+      "sample_logs": [
+        "2026-11-18 10:03:01 WARN [db] High latency on db connection checkout: 2300ms",
+        "2026-11-18 10:03:02 ERROR [db] Connection pool exhausted: active=20, max=20, pending=15",
+        "2026-11-18 10:03:03 ERROR [api] Connection timeout to database server 10.0.0.5:5432 after 5000ms",
+        "2026-11-18 10:03:04 ERROR [api] Failed to process request POST /api/v1/orders: 500 Internal Server Error",
+        "2026-11-18 10:03:05 ERROR [db] Connection timeout to database server 10.0.0.5:5432 after 5000ms",
+        "2026-11-18 10:03:06 ERROR [api] Failed to process request POST /api/v1/orders: 500 Internal Server Error",
+        "2026-11-18 10:03:07 ERROR [db] Database connection refused: host 10.0.0.5 unavailable",
+        "2026-11-18 10:03:08 ERROR [api] Connection timeout to database server 10.0.0.5:5432 after 5000ms",
+        "2026-11-18 10:03:10 CRITICAL [system] Service worker thread #3 crashed: unhandled DBConnectionError",
+        "2026-11-18 10:03:11 ERROR [api] Failed to process request GET /api/v1/items: 503 Service Unavailable",
+        "2026-11-18 10:03:15 CRITICAL [system] Service worker thread #4 crashed: unhandled DBConnectionError",
+        "2026-11-18 10:03:20 CRITICAL [system] Out of active workers: 0 of 4 workers responding",
+        "2026-11-18 10:03:25 ERROR [api] Healthcheck failed: dependency database is down"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "window": "2026-11-18 10:00:00",
+      "total_logs": 8,
+      "errors": 0,
+      "criticals": 0,
+      "warnings": 0,
+      "is_anomaly": false,
+      "severity": "NORMAL"
+    },
+    {
+      "window": "2026-11-18 10:01:00",
+      "total_logs": 5,
+      "errors": 0,
+      "criticals": 0,
+      "warnings": 2,
+      "is_anomaly": false,
+      "severity": "NORMAL"
+    },
+    {
+      "window": "2026-11-18 10:02:00",
+      "total_logs": 4,
+      "errors": 0,
+      "criticals": 0,
+      "warnings": 0,
+      "is_anomaly": false,
+      "severity": "NORMAL"
+    },
+    {
+      "window": "2026-11-18 10:03:00",
+      "total_logs": 13,
+      "errors": 9,
+      "criticals": 3,
+      "warnings": 1,
+      "is_anomaly": true,
+      "severity": "CRITICAL"
+    },
+    {
+      "window": "2026-11-18 10:04:00",
+      "total_logs": 5,
+      "errors": 0,
+      "criticals": 0,
+      "warnings": 1,
+      "is_anomaly": false,
+      "severity": "NORMAL"
+    }
+  ],
+  "top_templates": [
+    {
+      "event_id": "E004",
+      "template": "GET /api/v1/health <<NUM>> OK (latency <<DURATION>>)",
+      "count": 6
+    },
+    {
+      "event_id": "E003",
+      "template": "User <<NUM>> authenticated successfully from <<IP>>",
+      "count": 5
+    },
+    {
+      "event_id": "E011",
+      "template": "Connection timeout to database server <<IP>> after <<DURATION>>",
+      "count": 3
+    },
+    {
+      "event_id": "E005",
+      "template": "POST /api/v1/orders <<NUM>> Created (latency <<DURATION>>)",
+      "count": 2
+    },
+    {
+      "event_id": "E014",
+      "template": "Service worker thread #<<NUM>> crashed: unhandled DBConnectionError",
+      "count": 2
+    },
+    {
+      "event_id": "E006",
+      "template": "Periodic heartbeat ping successful",
+      "count": 2
+    },
+    {
+      "event_id": "E012",
+      "template": "Failed to process request POST /api/v1/orders: <<NUM>> Internal Server Error",
+      "count": 2
+    },
+    {
+      "event_id": "E002",
+      "template": "Database connection pool initialized with <<NUM>> connections",
+      "count": 1
+    },
+    {
+      "event_id": "E001",
+      "template": "Server process started with PID <<NUM>>",
+      "count": 1
+    },
+    {
+      "event_id": "E008",
+      "template": "Query slow: SELECT * FROM transactions executed in <<DURATION>>",
+      "count": 1
+    }
+  ]
+}
