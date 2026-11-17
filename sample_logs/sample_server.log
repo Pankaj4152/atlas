@@ -1,0 +1,45 @@
+# sample_logs/sample_server.log
+# Normal startup & operational logs
+2026-11-18 10:00:01 INFO [system] Server process started with PID 4120
+2026-11-18 10:00:02 INFO [db] Database connection pool initialized with 20 connections
+2026-11-18 10:00:05 INFO [auth] User 1029 authenticated successfully from 192.168.1.10
+2026-11-18 10:00:10 INFO [api] GET /api/v1/health 200 OK (latency 5ms)
+2026-11-18 10:00:15 INFO [auth] User 1030 authenticated successfully from 192.168.1.15
+2026-11-18 10:00:25 INFO [api] POST /api/v1/orders 201 Created (latency 42ms)
+2026-11-18 10:00:40 INFO [api] GET /api/v1/items 200 OK (latency 12ms)
+2026-11-18 10:00:55 INFO [system] Periodic heartbeat ping successful
+
+# Minute 10:01 - Minor warnings
+2026-11-18 10:01:05 INFO [auth] User 1031 authenticated successfully from 192.168.1.22
+2026-11-18 10:01:10 WARN [system] Memory usage reached 78% of threshold
+2026-11-18 10:01:20 INFO [api] GET /api/v1/items 200 OK (latency 15ms)
+2026-11-18 10:01:35 WARN [db] Query slow: SELECT * FROM transactions executed in 1240ms
+2026-11-18 10:01:50 INFO [api] GET /api/v1/health 200 OK (latency 4ms)
+
+# Minute 10:02 - Continued normal operation
+2026-11-18 10:02:00 INFO [api] GET /api/v1/items 200 OK (latency 10ms)
+2026-11-18 10:02:15 INFO [auth] User 1032 authenticated successfully from 192.168.1.33
+2026-11-18 10:02:30 INFO [api] POST /api/v1/orders 201 Created (latency 35ms)
+2026-11-18 10:02:45 INFO [system] Periodic heartbeat ping successful
+
+# Minute 10:03 - ANOMALY CASCADE (Connection spike & DB failure)
+2026-11-18 10:03:01 WARN [db] High latency on db connection checkout: 2300ms
+2026-11-18 10:03:02 ERROR [db] Connection pool exhausted: active=20, max=20, pending=15
+2026-11-18 10:03:03 ERROR [api] Connection timeout to database server 10.0.0.5:5432 after 5000ms
+2026-11-18 10:03:04 ERROR [api] Failed to process request POST /api/v1/orders: 500 Internal Server Error
+2026-11-18 10:03:05 ERROR [db] Connection timeout to database server 10.0.0.5:5432 after 5000ms
+2026-11-18 10:03:06 ERROR [api] Failed to process request POST /api/v1/orders: 500 Internal Server Error
+2026-11-18 10:03:07 ERROR [db] Database connection refused: host 10.0.0.5 unavailable
+2026-11-18 10:03:08 ERROR [api] Connection timeout to database server 10.0.0.5:5432 after 5000ms
+2026-11-18 10:03:10 CRITICAL [system] Service worker thread #3 crashed: unhandled DBConnectionError
+2026-11-18 10:03:11 ERROR [api] Failed to process request GET /api/v1/items: 503 Service Unavailable
+2026-11-18 10:03:15 CRITICAL [system] Service worker thread #4 crashed: unhandled DBConnectionError
+2026-11-18 10:03:20 CRITICAL [system] Out of active workers: 0 of 4 workers responding
+2026-11-18 10:03:25 ERROR [api] Healthcheck failed: dependency database is down
+
+# Minute 10:04 - Recovery phase
+2026-11-18 10:04:02 WARN [system] Watchdog detected worker failure, initiating worker pool restart
+2026-11-18 10:04:05 INFO [system] Spawned 4 replacement worker threads
+2026-11-18 10:04:10 INFO [db] Database connection re-established with host 10.0.0.5
+2026-11-18 10:04:20 INFO [api] GET /api/v1/health 200 OK (latency 11ms)
+2026-11-18 10:04:35 INFO [auth] User 1033 authenticated successfully from 192.168.1.10
