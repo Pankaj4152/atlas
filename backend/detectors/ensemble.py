@@ -16,11 +16,10 @@ class EnsembleDetector:
     Ensemble detection pipeline:
     - Runs RuleBasedDetector, ZScoreDetector, and IsolationForestDetector.
     - Votes across models and computes an ensemble agreement score.
-    - Classifies severity:
-        - CRITICAL: Presence of CRITICAL logs or all 3 models agree on high errors.
-        - HIGH: At least 2 models agree on anomaly.
-        - MEDIUM: 1 statistical/ML model flagged with moderate score.
-        - LOW: Borderline indicator.
+    - Anomaly Decision Policy:
+        - Strict Anomaly (is_anomaly=True): When at least 2 models agree (majority/consensus),
+          OR when critical errors are explicitly observed.
+        - Single detector flags without consensus are treated as MEDIUM/LOW warning signals.
     """
 
     def __init__(
@@ -61,19 +60,19 @@ class EnsembleDetector:
             i_vote = bool(row.get("iforest_anomaly", False))
             votes = sum([r_vote, z_vote, i_vote])
 
-            # Determine severity
+            # Determine severity & verified consensus anomaly
             crit_count = row.get("critical_count", 0)
             err_count = row.get("error_count", 0)
 
-            if crit_count > 0 or (votes >= 2 and err_count >= 10):
+            if crit_count > 0:
                 severity = "CRITICAL"
                 is_anom = True
             elif votes >= 2:
-                severity = "HIGH"
+                severity = "HIGH" if err_count >= 8 else "MEDIUM"
                 is_anom = True
             elif votes == 1:
-                severity = "MEDIUM"
-                is_anom = True
+                severity = "LOW"
+                is_anom = False  # Noise suppression: single detector flag without corroboration
             elif err_count > 0:
                 severity = "LOW"
                 is_anom = False

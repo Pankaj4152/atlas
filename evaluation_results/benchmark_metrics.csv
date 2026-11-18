@@ -1,0 +1,5 @@
+Model,Precision,Recall,F1-Score,False Positive Rate,Latency (ms),True Positives,False Positives,False Negatives
+Rule-Based (Baseline),0.25,1.0,0.4,37.5%,1.87,7,21,0
+Z-Score (Statistical),0.875,1.0,0.9333,1.8%,1.08,7,1,0
+Isolation Forest (ML),1.0,0.1429,0.25,0.0%,83.56,1,0,6
+Hybrid Ensemble (Proposed),1.0,1.0,1.0,0.0%,90.09,7,0,0
