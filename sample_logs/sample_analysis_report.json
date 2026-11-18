@@ -1,33 +1,661 @@
 {
   "file_info": {
-    "file_name": "sample_server.log",
-    "file_size_kb": 3.12,
-    "analyzed_at": "2026-11-18T01:38:20.127681",
-    "duration_seconds": 0.09
+    "file_name": "production_server_large.log",
+    "file_size_kb": 532.16,
+    "analyzed_at": "2026-11-18T12:19:34.836107",
+    "duration_seconds": 0.4
   },
   "summary": {
-    "total_logs": 35,
-    "total_windows": 5,
-    "flagged_windows": 1,
-    "critical_incidents": 1,
-    "total_incidents": 1,
+    "total_logs": 5000,
+    "total_windows": 63,
+    "flagged_windows": 28,
+    "critical_incidents": 4,
+    "total_incidents": 28,
     "severity_distribution": {
-      "CRITICAL": 3,
-      "ERROR": 9,
-      "WARNING": 4,
-      "INFO": 19,
+      "CRITICAL": 85,
+      "ERROR": 484,
+      "WARNING": 542,
+      "INFO": 3889,
       "DEBUG": 0
     }
   },
   "incidents": [
     {
       "incident_id": "INC-001",
-      "time_window": "2026-11-18 10:03:00 to 10:04:00",
+      "time_window": "2026-11-18 09:00:00 to 09:01:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (6 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (6)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 82,
+        "error_count": 6,
+        "critical_count": 0,
+        "warning_count": 5
+      },
+      "detector_triggers": "[Rule] High error count (6)",
+      "sample_logs": [
+        "2026-11-18 09:00:15 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 897ms on host 10.0.0.5",
+        "2026-11-18 09:00:27 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.18:443",
+        "2026-11-18 09:00:29 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1339ms on host 10.0.0.5",
+        "2026-11-18 09:00:31 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.34:443",
+        "2026-11-18 09:00:36 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 844ms on host 10.0.0.5",
+        "2026-11-18 09:00:38 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.11:443",
+        "2026-11-18 09:00:41 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.45:443",
+        "2026-11-18 09:00:43 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1373ms on host 10.0.0.5",
+        "2026-11-18 09:00:51 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.56:443",
+        "2026-11-18 09:00:56 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.37:443",
+        "2026-11-18 09:00:56 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 892ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-002",
+      "time_window": "2026-11-18 09:01:00 to 09:02:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (6 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (6)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 81,
+        "error_count": 6,
+        "critical_count": 0,
+        "warning_count": 8
+      },
+      "detector_triggers": "[Rule] High error count (6)",
+      "sample_logs": [
+        "2026-11-18 09:01:12 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1466ms on host 10.0.0.5",
+        "2026-11-18 09:01:19 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.59:443",
+        "2026-11-18 09:01:25 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1311ms on host 10.0.0.5",
+        "2026-11-18 09:01:33 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.74:443",
+        "2026-11-18 09:01:35 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.34:443",
+        "2026-11-18 09:01:36 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.67:443",
+        "2026-11-18 09:01:39 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1320ms on host 10.0.0.5",
+        "2026-11-18 09:01:45 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1590ms on host 10.0.0.5",
+        "2026-11-18 09:01:46 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.24:443",
+        "2026-11-18 09:01:50 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1093ms on host 10.0.0.5",
+        "2026-11-18 09:01:51 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 934ms on host 10.0.0.5",
+        "2026-11-18 09:01:52 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.26:443",
+        "2026-11-18 09:01:54 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1009ms on host 10.0.0.5",
+        "2026-11-18 09:01:58 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1024ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-003",
+      "time_window": "2026-11-18 09:03:00 to 09:04:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 76,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 7
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:03:04 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1185ms on host 10.0.0.5",
+        "2026-11-18 09:03:11 WARN [order-service] Slow query execution: SELECT * FROM analytics took 868ms on host 10.0.0.5",
+        "2026-11-18 09:03:12 WARN [order-service] Slow query execution: SELECT * FROM analytics took 943ms on host 10.0.0.5",
+        "2026-11-18 09:03:19 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1171ms on host 10.0.0.5",
+        "2026-11-18 09:03:20 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.56:443",
+        "2026-11-18 09:03:25 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.63:443",
+        "2026-11-18 09:03:27 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.31:443",
+        "2026-11-18 09:03:28 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1148ms on host 10.0.0.5",
+        "2026-11-18 09:03:44 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.40:443",
+        "2026-11-18 09:03:50 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 828ms on host 10.0.0.5",
+        "2026-11-18 09:03:53 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.22:443",
+        "2026-11-18 09:03:59 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1110ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-004",
+      "time_window": "2026-11-18 09:05:00 to 09:06:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 81,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 10
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:05:00 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1499ms on host 10.0.0.5",
+        "2026-11-18 09:05:04 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.32:443",
+        "2026-11-18 09:05:15 WARN [order-service] Slow query execution: SELECT * FROM analytics took 902ms on host 10.0.0.5",
+        "2026-11-18 09:05:17 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 830ms on host 10.0.0.5",
+        "2026-11-18 09:05:19 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1585ms on host 10.0.0.5",
+        "2026-11-18 09:05:22 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1207ms on host 10.0.0.5",
+        "2026-11-18 09:05:36 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1050ms on host 10.0.0.5",
+        "2026-11-18 09:05:43 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.63:443",
+        "2026-11-18 09:05:47 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1473ms on host 10.0.0.5",
+        "2026-11-18 09:05:50 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.55:443",
+        "2026-11-18 09:05:50 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 845ms on host 10.0.0.5",
+        "2026-11-18 09:05:52 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1071ms on host 10.0.0.5",
+        "2026-11-18 09:05:52 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.52:443",
+        "2026-11-18 09:05:57 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.38:443",
+        "2026-11-18 09:05:59 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1231ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-005",
+      "time_window": "2026-11-18 09:06:00 to 09:07:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 78,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 5
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:06:00 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.42:443",
+        "2026-11-18 09:06:20 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 884ms on host 10.0.0.5",
+        "2026-11-18 09:06:21 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.69:443",
+        "2026-11-18 09:06:26 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 913ms on host 10.0.0.5",
+        "2026-11-18 09:06:31 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.39:443",
+        "2026-11-18 09:06:39 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1155ms on host 10.0.0.5",
+        "2026-11-18 09:06:42 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1099ms on host 10.0.0.5",
+        "2026-11-18 09:06:46 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.28:443",
+        "2026-11-18 09:06:47 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.34:443",
+        "2026-11-18 09:06:55 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1172ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-006",
+      "time_window": "2026-11-18 09:08:00 to 09:09:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 84,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 10
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:08:03 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 949ms on host 10.0.0.5",
+        "2026-11-18 09:08:15 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1550ms on host 10.0.0.5",
+        "2026-11-18 09:08:16 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.18:443",
+        "2026-11-18 09:08:17 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1242ms on host 10.0.0.5",
+        "2026-11-18 09:08:25 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1491ms on host 10.0.0.5",
+        "2026-11-18 09:08:30 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1446ms on host 10.0.0.5",
+        "2026-11-18 09:08:32 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.22:443",
+        "2026-11-18 09:08:33 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1203ms on host 10.0.0.5",
+        "2026-11-18 09:08:35 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.58:443",
+        "2026-11-18 09:08:36 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.34:443",
+        "2026-11-18 09:08:36 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1346ms on host 10.0.0.5",
+        "2026-11-18 09:08:42 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1117ms on host 10.0.0.5",
+        "2026-11-18 09:08:44 WARN [order-service] Slow query execution: SELECT * FROM analytics took 954ms on host 10.0.0.5",
+        "2026-11-18 09:08:45 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1192ms on host 10.0.0.5",
+        "2026-11-18 09:08:51 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.71:443"
+      ]
+    },
+    {
+      "incident_id": "INC-007",
+      "time_window": "2026-11-18 09:09:00 to 09:10:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (6 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (6)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 80,
+        "error_count": 6,
+        "critical_count": 0,
+        "warning_count": 8
+      },
+      "detector_triggers": "[Rule] High error count (6)",
+      "sample_logs": [
+        "2026-11-18 09:09:00 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1208ms on host 10.0.0.5",
+        "2026-11-18 09:09:04 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.74:443",
+        "2026-11-18 09:09:05 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1315ms on host 10.0.0.5",
+        "2026-11-18 09:09:06 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1072ms on host 10.0.0.5",
+        "2026-11-18 09:09:08 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1581ms on host 10.0.0.5",
+        "2026-11-18 09:09:08 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.70:443",
+        "2026-11-18 09:09:11 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1394ms on host 10.0.0.5",
+        "2026-11-18 09:09:13 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1173ms on host 10.0.0.5",
+        "2026-11-18 09:09:21 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.55:443",
+        "2026-11-18 09:09:29 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.59:443",
+        "2026-11-18 09:09:39 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.52:443",
+        "2026-11-18 09:09:50 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1338ms on host 10.0.0.5",
+        "2026-11-18 09:09:57 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.12:443",
+        "2026-11-18 09:09:58 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1006ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-008",
+      "time_window": "2026-11-18 09:10:00 to 09:11:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (6 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (6)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 78,
+        "error_count": 6,
+        "critical_count": 0,
+        "warning_count": 17
+      },
+      "detector_triggers": "[Rule] High error count (6)",
+      "sample_logs": [
+        "2026-11-18 09:10:01 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1582ms on host 10.0.0.5",
+        "2026-11-18 09:10:03 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.64:443",
+        "2026-11-18 09:10:05 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1486ms on host 10.0.0.5",
+        "2026-11-18 09:10:06 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 870ms on host 10.0.0.5",
+        "2026-11-18 09:10:09 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1116ms on host 10.0.0.5",
+        "2026-11-18 09:10:12 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.52:443",
+        "2026-11-18 09:10:13 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.26:443",
+        "2026-11-18 09:10:13 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 203.0.113.88:443",
+        "2026-11-18 09:10:16 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1174ms on host 10.0.0.5",
+        "2026-11-18 09:10:19 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 827ms on host 10.0.0.5",
+        "2026-11-18 09:10:20 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1070ms on host 10.0.0.5",
+        "2026-11-18 09:10:21 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 995ms on host 10.0.0.5",
+        "2026-11-18 09:10:22 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1403ms on host 10.0.0.5",
+        "2026-11-18 09:10:24 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1582ms on host 10.0.0.5",
+        "2026-11-18 09:10:29 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 895ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-009",
+      "time_window": "2026-11-18 09:11:00 to 09:12:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 80,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 11
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:11:00 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.45:443",
+        "2026-11-18 09:11:04 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 858ms on host 10.0.0.5",
+        "2026-11-18 09:11:05 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 942ms on host 10.0.0.5",
+        "2026-11-18 09:11:10 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1532ms on host 10.0.0.5",
+        "2026-11-18 09:11:14 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1114ms on host 10.0.0.5",
+        "2026-11-18 09:11:19 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.79:443",
+        "2026-11-18 09:11:20 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1217ms on host 10.0.0.5",
+        "2026-11-18 09:11:28 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1401ms on host 10.0.0.5",
+        "2026-11-18 09:11:31 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 934ms on host 10.0.0.5",
+        "2026-11-18 09:11:36 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 861ms on host 10.0.0.5",
+        "2026-11-18 09:11:37 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1062ms on host 10.0.0.5",
+        "2026-11-18 09:11:45 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 835ms on host 10.0.0.5",
+        "2026-11-18 09:11:46 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.39:443",
+        "2026-11-18 09:11:54 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.15:443",
+        "2026-11-18 09:11:56 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.73:443"
+      ]
+    },
+    {
+      "incident_id": "INC-010",
+      "time_window": "2026-11-18 09:12:00 to 09:13:00",
+      "title": "Authentication Surge or Brute-Force Attempt",
+      "severity": "high",
+      "confidence": "medium",
+      "probable_root_cause": "Repeated authentication/authorization errors detected over a short time window.",
+      "explanation": "Anomalous authentication pattern observed with 39 errors in window 2026-11-18 09:12:00 to 09:13:00.",
+      "recommended_actions": [
+        "Review client IP addresses for brute force attacks.",
+        "Check token expiration or authentication service availability.",
+        "Enable rate limiting on login/auth endpoints."
+      ],
+      "metrics": {
+        "total_logs": 79,
+        "error_count": 39,
+        "critical_count": 0,
+        "warning_count": 16
+      },
+      "detector_triggers": "[Rule] High error count (39); High error ratio (49.4%) | [Z-Score] error_count spike (Z=2.90, val=39)",
+      "sample_logs": [
+        "2026-11-18 09:12:00 ERROR [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #73)",
+        "2026-11-18 09:12:00 WARN [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #91)",
+        "2026-11-18 09:12:02 ERROR [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #54)",
+        "2026-11-18 09:12:04 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.29:443",
+        "2026-11-18 09:12:05 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #97)",
+        "2026-11-18 09:12:06 ERROR [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #101)",
+        "2026-11-18 09:12:07 WARN [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #89)",
+        "2026-11-18 09:12:09 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #22)",
+        "2026-11-18 09:12:11 WARN [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #38)",
+        "2026-11-18 09:12:12 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #106)",
+        "2026-11-18 09:12:13 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #87)",
+        "2026-11-18 09:12:14 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1572ms on host 10.0.0.5",
+        "2026-11-18 09:12:14 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #40)",
+        "2026-11-18 09:12:17 ERROR [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #10)",
+        "2026-11-18 09:12:19 ERROR [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #74)"
+      ]
+    },
+    {
+      "incident_id": "INC-011",
+      "time_window": "2026-11-18 09:13:00 to 09:14:00",
+      "title": "Authentication Surge or Brute-Force Attempt",
+      "severity": "high",
+      "confidence": "medium",
+      "probable_root_cause": "Repeated authentication/authorization errors detected over a short time window.",
+      "explanation": "Anomalous authentication pattern observed with 42 errors in window 2026-11-18 09:13:00 to 09:14:00.",
+      "recommended_actions": [
+        "Review client IP addresses for brute force attacks.",
+        "Check token expiration or authentication service availability.",
+        "Enable rate limiting on login/auth endpoints."
+      ],
+      "metrics": {
+        "total_logs": 83,
+        "error_count": 42,
+        "critical_count": 0,
+        "warning_count": 15
+      },
+      "detector_triggers": "[Rule] High error count (42); High error ratio (50.6%) | [Z-Score] error_count spike (Z=3.17, val=42)",
+      "sample_logs": [
+        "2026-11-18 09:13:00 WARN [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #36)",
+        "2026-11-18 09:13:01 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #101)",
+        "2026-11-18 09:13:01 ERROR [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #29)",
+        "2026-11-18 09:13:02 WARN [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #40)",
+        "2026-11-18 09:13:03 ERROR [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #82)",
+        "2026-11-18 09:13:03 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #35)",
+        "2026-11-18 09:13:04 ERROR [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #15)",
+        "2026-11-18 09:13:05 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #21)",
+        "2026-11-18 09:13:07 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #52)",
+        "2026-11-18 09:13:07 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 839ms on host 10.0.0.5",
+        "2026-11-18 09:13:08 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #111)",
+        "2026-11-18 09:13:09 ERROR [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #87)",
+        "2026-11-18 09:13:10 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #30)",
+        "2026-11-18 09:13:12 WARN [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #14)",
+        "2026-11-18 09:13:13 WARN [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #29)"
+      ]
+    },
+    {
+      "incident_id": "INC-012",
+      "time_window": "2026-11-18 09:14:00 to 09:15:00",
+      "title": "Authentication Surge or Brute-Force Attempt",
+      "severity": "high",
+      "confidence": "medium",
+      "probable_root_cause": "Repeated authentication/authorization errors detected over a short time window.",
+      "explanation": "Anomalous authentication pattern observed with 36 errors in window 2026-11-18 09:14:00 to 09:15:00.",
+      "recommended_actions": [
+        "Review client IP addresses for brute force attacks.",
+        "Check token expiration or authentication service availability.",
+        "Enable rate limiting on login/auth endpoints."
+      ],
+      "metrics": {
+        "total_logs": 79,
+        "error_count": 36,
+        "critical_count": 0,
+        "warning_count": 11
+      },
+      "detector_triggers": "[Rule] High error count (36); High error ratio (45.6%) | [Z-Score] error_count spike (Z=2.62, val=36)",
+      "sample_logs": [
+        "2026-11-18 09:14:00 ERROR [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #42)",
+        "2026-11-18 09:14:00 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #120)",
+        "2026-11-18 09:14:02 ERROR [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #37)",
+        "2026-11-18 09:14:03 WARN [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #64)",
+        "2026-11-18 09:14:04 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #109)",
+        "2026-11-18 09:14:05 ERROR [auth-service] Failed authentication attempt for user 'usr_9999' from 203.0.113.88: invalid credentials (attempt #32)",
+        "2026-11-18 09:14:06 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #120)",
+        "2026-11-18 09:14:10 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1036ms on host 10.0.0.5",
+        "2026-11-18 09:14:13 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #30)",
+        "2026-11-18 09:14:14 ERROR [auth-service] Failed authentication attempt for user 'admin' from 203.0.113.88: invalid credentials (attempt #110)",
+        "2026-11-18 09:14:16 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #27)",
+        "2026-11-18 09:14:17 ERROR [auth-service] Failed authentication attempt for user 'usr_1001' from 203.0.113.88: invalid credentials (attempt #16)",
+        "2026-11-18 09:14:19 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #89)",
+        "2026-11-18 09:14:20 WARN [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #77)",
+        "2026-11-18 09:14:20 ERROR [auth-service] Failed authentication attempt for user 'root' from 203.0.113.88: invalid credentials (attempt #19)"
+      ]
+    },
+    {
+      "incident_id": "INC-013",
+      "time_window": "2026-11-18 09:15:00 to 09:16:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (6 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (6)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 85,
+        "error_count": 6,
+        "critical_count": 0,
+        "warning_count": 11
+      },
+      "detector_triggers": "[Rule] High error count (6)",
+      "sample_logs": [
+        "2026-11-18 09:15:00 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.26:443",
+        "2026-11-18 09:15:05 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1408ms on host 10.0.0.5",
+        "2026-11-18 09:15:11 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1483ms on host 10.0.0.5",
+        "2026-11-18 09:15:15 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1013ms on host 10.0.0.5",
+        "2026-11-18 09:15:16 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1485ms on host 10.0.0.5",
+        "2026-11-18 09:15:20 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.50:443",
+        "2026-11-18 09:15:27 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1233ms on host 10.0.0.5",
+        "2026-11-18 09:15:34 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1575ms on host 10.0.0.5",
+        "2026-11-18 09:15:35 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.74:443",
+        "2026-11-18 09:15:38 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.26:443",
+        "2026-11-18 09:15:43 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1487ms on host 10.0.0.5",
+        "2026-11-18 09:15:43 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.43:443",
+        "2026-11-18 09:15:46 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 847ms on host 10.0.0.5",
+        "2026-11-18 09:15:55 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1527ms on host 10.0.0.5",
+        "2026-11-18 09:15:56 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1078ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-014",
+      "time_window": "2026-11-18 09:20:00 to 09:21:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 80,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 9
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:20:02 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.60:443",
+        "2026-11-18 09:20:12 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.14:443",
+        "2026-11-18 09:20:13 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1505ms on host 10.0.0.5",
+        "2026-11-18 09:20:15 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1208ms on host 10.0.0.5",
+        "2026-11-18 09:20:17 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.61:443",
+        "2026-11-18 09:20:19 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.62:443",
+        "2026-11-18 09:20:24 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1406ms on host 10.0.0.5",
+        "2026-11-18 09:20:25 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1438ms on host 10.0.0.5",
+        "2026-11-18 09:20:39 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 885ms on host 10.0.0.5",
+        "2026-11-18 09:20:40 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1309ms on host 10.0.0.5",
+        "2026-11-18 09:20:42 WARN [order-service] Slow query execution: SELECT * FROM analytics took 923ms on host 10.0.0.5",
+        "2026-11-18 09:20:56 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1349ms on host 10.0.0.5",
+        "2026-11-18 09:20:57 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1348ms on host 10.0.0.5",
+        "2026-11-18 09:20:59 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.79:443"
+      ]
+    },
+    {
+      "incident_id": "INC-015",
+      "time_window": "2026-11-18 09:31:00 to 09:32:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (6 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (6)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 75,
+        "error_count": 6,
+        "critical_count": 0,
+        "warning_count": 8
+      },
+      "detector_triggers": "[Rule] High error count (6)",
+      "sample_logs": [
+        "2026-11-18 09:31:00 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.54:443",
+        "2026-11-18 09:31:03 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1275ms on host 10.0.0.5",
+        "2026-11-18 09:31:12 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1516ms on host 10.0.0.5",
+        "2026-11-18 09:31:17 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1177ms on host 10.0.0.5",
+        "2026-11-18 09:31:30 ERROR [payment-service] Client aborted request: ECONNRESET on connection 10.0.4.15:443",
+        "2026-11-18 09:31:36 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 938ms on host 10.0.0.5",
+        "2026-11-18 09:31:38 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1213ms on host 10.0.0.5",
+        "2026-11-18 09:31:39 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.55:443",
+        "2026-11-18 09:31:42 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1295ms on host 10.0.0.5",
+        "2026-11-18 09:31:43 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 898ms on host 10.0.0.5",
+        "2026-11-18 09:31:46 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1294ms on host 10.0.0.5",
+        "2026-11-18 09:31:46 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.56:443",
+        "2026-11-18 09:31:53 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.30:443",
+        "2026-11-18 09:31:54 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.13:443"
+      ]
+    },
+    {
+      "incident_id": "INC-016",
+      "time_window": "2026-11-18 09:33:00 to 09:34:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (8 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (8)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 80,
+        "error_count": 8,
+        "critical_count": 0,
+        "warning_count": 9
+      },
+      "detector_triggers": "[Rule] High error count (8)",
+      "sample_logs": [
+        "2026-11-18 09:33:06 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1587ms on host 10.0.0.5",
+        "2026-11-18 09:33:07 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1114ms on host 10.0.0.5",
+        "2026-11-18 09:33:09 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1224ms on host 10.0.0.5",
+        "2026-11-18 09:33:11 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.11:443",
+        "2026-11-18 09:33:13 WARN [order-service] Slow query execution: SELECT * FROM analytics took 821ms on host 10.0.0.5",
+        "2026-11-18 09:33:14 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.41:443",
+        "2026-11-18 09:33:17 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.21:443",
+        "2026-11-18 09:33:18 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.15:443",
+        "2026-11-18 09:33:20 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.12:443",
+        "2026-11-18 09:33:34 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.21:443",
+        "2026-11-18 09:33:39 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 927ms on host 10.0.0.5",
+        "2026-11-18 09:33:41 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.16:443",
+        "2026-11-18 09:33:43 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1359ms on host 10.0.0.5",
+        "2026-11-18 09:33:47 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1598ms on host 10.0.0.5",
+        "2026-11-18 09:33:55 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1407ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-017",
+      "time_window": "2026-11-18 09:40:00 to 09:41:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (7 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (7)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 78,
+        "error_count": 7,
+        "critical_count": 0,
+        "warning_count": 6
+      },
+      "detector_triggers": "[Rule] High error count (7)",
+      "sample_logs": [
+        "2026-11-18 09:40:02 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1025ms on host 10.0.0.5",
+        "2026-11-18 09:40:05 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 974ms on host 10.0.0.5",
+        "2026-11-18 09:40:10 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.66:443",
+        "2026-11-18 09:40:12 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.55:443",
+        "2026-11-18 09:40:16 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.46:443",
+        "2026-11-18 09:40:19 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.60:443",
+        "2026-11-18 09:40:27 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.76:443",
+        "2026-11-18 09:40:29 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.15:443",
+        "2026-11-18 09:40:31 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1276ms on host 10.0.0.5",
+        "2026-11-18 09:40:40 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1156ms on host 10.0.0.5",
+        "2026-11-18 09:40:46 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.75:443",
+        "2026-11-18 09:40:47 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1526ms on host 10.0.0.5",
+        "2026-11-18 09:40:54 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1096ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-018",
+      "time_window": "2026-11-18 09:42:00 to 09:43:00",
       "title": "Database Connection Pool Exhaustion",
       "severity": "critical",
       "confidence": "high",
       "probable_root_cause": "Database connection pool was saturated, leading to cascading request timeouts and worker crashes.",
-      "explanation": "Observed 9 errors and 3 critical failures during window 2026-11-18 10:03:00 to 10:04:00. Applications failed to checkout database connections.",
+      "explanation": "Observed 33 errors and 17 critical failures during window 2026-11-18 09:42:00 to 09:43:00. Applications failed to checkout database connections.",
       "recommended_actions": [
         "Increase max_connections in the database configuration.",
         "Audit connection pool leakages in application repositories.",
@@ -35,126 +663,1021 @@
         "Review slow-running transactions locking database connections."
       ],
       "metrics": {
-        "total_logs": 13,
-        "error_count": 9,
-        "critical_count": 3,
-        "warning_count": 1
+        "total_logs": 74,
+        "error_count": 33,
+        "critical_count": 17,
+        "warning_count": 3
       },
-      "detector_triggers": "[Rule] Critical errors observed (3); High error count (9); High error ratio (92.3%) | [IsolationForest] Multivariate feature anomaly (score=-0.085)",
+      "detector_triggers": "[Rule] Critical errors observed (17); High error count (33); High error ratio (67.6%) | [Z-Score] critical_count spike (Z=2.95, val=17)",
       "sample_logs": [
-        "2026-11-18 10:03:01 WARN [db] High latency on db connection checkout: 2300ms",
-        "2026-11-18 10:03:02 ERROR [db] Connection pool exhausted: active=20, max=20, pending=15",
-        "2026-11-18 10:03:03 ERROR [api] Connection timeout to database server 10.0.0.5:5432 after 5000ms",
-        "2026-11-18 10:03:04 ERROR [api] Failed to process request POST /api/v1/orders: 500 Internal Server Error",
-        "2026-11-18 10:03:05 ERROR [db] Connection timeout to database server 10.0.0.5:5432 after 5000ms",
-        "2026-11-18 10:03:06 ERROR [api] Failed to process request POST /api/v1/orders: 500 Internal Server Error",
-        "2026-11-18 10:03:07 ERROR [db] Database connection refused: host 10.0.0.5 unavailable",
-        "2026-11-18 10:03:08 ERROR [api] Connection timeout to database server 10.0.0.5:5432 after 5000ms",
-        "2026-11-18 10:03:10 CRITICAL [system] Service worker thread #3 crashed: unhandled DBConnectionError",
-        "2026-11-18 10:03:11 ERROR [api] Failed to process request GET /api/v1/items: 503 Service Unavailable",
-        "2026-11-18 10:03:15 CRITICAL [system] Service worker thread #4 crashed: unhandled DBConnectionError",
-        "2026-11-18 10:03:20 CRITICAL [system] Out of active workers: 0 of 4 workers responding",
-        "2026-11-18 10:03:25 ERROR [api] Healthcheck failed: dependency database is down"
+        "2026-11-18 09:42:00 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1027ms on host 10.0.0.5",
+        "2026-11-18 09:42:00 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.19:443",
+        "2026-11-18 09:42:01 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-2",
+        "2026-11-18 09:42:04 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-7",
+        "2026-11-18 09:42:06 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=235, timeout exceeded (5000ms)",
+        "2026-11-18 09:42:07 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-5",
+        "2026-11-18 09:42:08 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=154, timeout exceeded (5000ms)",
+        "2026-11-18 09:42:10 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_15710",
+        "2026-11-18 09:42:10 ERROR [postgres-db] Connection pool exhausted: active=100/100, pending_queue=141, timeout exceeded (5000ms)",
+        "2026-11-18 09:42:11 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms",
+        "2026-11-18 09:42:12 ERROR [postgres-db] Connection pool exhausted: active=100/100, pending_queue=94, timeout exceeded (5000ms)",
+        "2026-11-18 09:42:13 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1006ms on host 10.0.0.5",
+        "2026-11-18 09:42:14 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.31:443",
+        "2026-11-18 09:42:15 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms",
+        "2026-11-18 09:42:16 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms"
+      ]
+    },
+    {
+      "incident_id": "INC-019",
+      "time_window": "2026-11-18 09:43:00 to 09:44:00",
+      "title": "Database Connection Pool Exhaustion",
+      "severity": "critical",
+      "confidence": "high",
+      "probable_root_cause": "Database connection pool was saturated, leading to cascading request timeouts and worker crashes.",
+      "explanation": "Observed 44 errors and 17 critical failures during window 2026-11-18 09:43:00 to 09:44:00. Applications failed to checkout database connections.",
+      "recommended_actions": [
+        "Increase max_connections in the database configuration.",
+        "Audit connection pool leakages in application repositories.",
+        "Deploy PgBouncer or connection pooling proxy.",
+        "Review slow-running transactions locking database connections."
+      ],
+      "metrics": {
+        "total_logs": 82,
+        "error_count": 44,
+        "critical_count": 17,
+        "warning_count": 4
+      },
+      "detector_triggers": "[Rule] Critical errors observed (17); High error count (44); High error ratio (74.4%) | [Z-Score] error_count spike (Z=3.36, val=44); critical_count spike (Z=2.95, val=17) | [IsolationForest] Multivariate feature anomaly (score=-0.015)",
+      "sample_logs": [
+        "2026-11-18 09:43:00 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_90360",
+        "2026-11-18 09:43:02 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms",
+        "2026-11-18 09:43:03 ERROR [postgres-db] Connection pool exhausted: active=100/100, pending_queue=224, timeout exceeded (5000ms)",
+        "2026-11-18 09:43:06 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_30588",
+        "2026-11-18 09:43:07 ERROR [postgres-db] Connection pool exhausted: active=100/100, pending_queue=120, timeout exceeded (5000ms)",
+        "2026-11-18 09:43:08 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=90, timeout exceeded (5000ms)",
+        "2026-11-18 09:43:09 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.51:443",
+        "2026-11-18 09:43:09 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=118, timeout exceeded (5000ms)",
+        "2026-11-18 09:43:10 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1145ms on host 10.0.0.5",
+        "2026-11-18 09:43:11 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1445ms on host 10.0.0.5",
+        "2026-11-18 09:43:12 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=138, timeout exceeded (5000ms)",
+        "2026-11-18 09:43:12 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms",
+        "2026-11-18 09:43:13 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_93581",
+        "2026-11-18 09:43:13 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-3",
+        "2026-11-18 09:43:14 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=106, timeout exceeded (5000ms)"
+      ]
+    },
+    {
+      "incident_id": "INC-020",
+      "time_window": "2026-11-18 09:44:00 to 09:45:00",
+      "title": "Database Connection Pool Exhaustion",
+      "severity": "critical",
+      "confidence": "high",
+      "probable_root_cause": "Database connection pool was saturated, leading to cascading request timeouts and worker crashes.",
+      "explanation": "Observed 31 errors and 27 critical failures during window 2026-11-18 09:44:00 to 09:45:00. Applications failed to checkout database connections.",
+      "recommended_actions": [
+        "Increase max_connections in the database configuration.",
+        "Audit connection pool leakages in application repositories.",
+        "Deploy PgBouncer or connection pooling proxy.",
+        "Review slow-running transactions locking database connections."
+      ],
+      "metrics": {
+        "total_logs": 80,
+        "error_count": 31,
+        "critical_count": 27,
+        "warning_count": 3
+      },
+      "detector_triggers": "[Rule] Critical errors observed (27); High error count (31); High error ratio (72.5%) | [Z-Score] critical_count spike (Z=4.84, val=27)",
+      "sample_logs": [
+        "2026-11-18 09:44:00 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_34651",
+        "2026-11-18 09:44:01 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_25836",
+        "2026-11-18 09:44:03 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1440ms on host 10.0.0.5",
+        "2026-11-18 09:44:04 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_65858",
+        "2026-11-18 09:44:05 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=227, timeout exceeded (5000ms)",
+        "2026-11-18 09:44:06 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=104, timeout exceeded (5000ms)",
+        "2026-11-18 09:44:06 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms",
+        "2026-11-18 09:44:08 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_56960",
+        "2026-11-18 09:44:09 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_76502",
+        "2026-11-18 09:44:10 ERROR [postgres-db] Connection pool exhausted: active=100/100, pending_queue=196, timeout exceeded (5000ms)",
+        "2026-11-18 09:44:10 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-7",
+        "2026-11-18 09:44:11 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_78920",
+        "2026-11-18 09:44:13 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-5",
+        "2026-11-18 09:44:14 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=184, timeout exceeded (5000ms)",
+        "2026-11-18 09:44:14 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=232, timeout exceeded (5000ms)"
+      ]
+    },
+    {
+      "incident_id": "INC-021",
+      "time_window": "2026-11-18 09:45:00 to 09:46:00",
+      "title": "Database Connection Pool Exhaustion",
+      "severity": "critical",
+      "confidence": "high",
+      "probable_root_cause": "Database connection pool was saturated, leading to cascading request timeouts and worker crashes.",
+      "explanation": "Observed 38 errors and 24 critical failures during window 2026-11-18 09:45:00 to 09:46:00. Applications failed to checkout database connections.",
+      "recommended_actions": [
+        "Increase max_connections in the database configuration.",
+        "Audit connection pool leakages in application repositories.",
+        "Deploy PgBouncer or connection pooling proxy.",
+        "Review slow-running transactions locking database connections."
+      ],
+      "metrics": {
+        "total_logs": 81,
+        "error_count": 38,
+        "critical_count": 24,
+        "warning_count": 3
+      },
+      "detector_triggers": "[Rule] Critical errors observed (24); High error count (38); High error ratio (76.5%) | [Z-Score] error_count spike (Z=2.80, val=38); critical_count spike (Z=4.28, val=24)",
+      "sample_logs": [
+        "2026-11-18 09:45:00 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_16185",
+        "2026-11-18 09:45:02 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-2",
+        "2026-11-18 09:45:03 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_18973",
+        "2026-11-18 09:45:04 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_53413",
+        "2026-11-18 09:45:04 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms",
+        "2026-11-18 09:45:05 ERROR [order-service] Database query failed: could not acquire connection from pool for transaction tx_42011",
+        "2026-11-18 09:45:06 CRITICAL [postgres-db] Connection pool exhausted: active=100/100, pending_queue=157, timeout exceeded (5000ms)",
+        "2026-11-18 09:45:06 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 934ms on host 10.0.0.5",
+        "2026-11-18 09:45:07 ERROR [postgres-db] Connection pool exhausted: active=100/100, pending_queue=229, timeout exceeded (5000ms)",
+        "2026-11-18 09:45:08 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms",
+        "2026-11-18 09:45:09 ERROR [api-gateway] Upstream dependency order-service timed out: HTTP 504 Gateway Timeout after 5002ms",
+        "2026-11-18 09:45:10 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-7",
+        "2026-11-18 09:45:11 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-4",
+        "2026-11-18 09:45:12 ERROR [postgres-db] Connection pool exhausted: active=100/100, pending_queue=179, timeout exceeded (5000ms)",
+        "2026-11-18 09:45:13 CRITICAL [worker-pool] Fatal worker thread crash: unhandled ConnectionPoolExhaustedException in ConsumerThread-2"
+      ]
+    },
+    {
+      "incident_id": "INC-022",
+      "time_window": "2026-11-18 09:46:00 to 09:47:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 79,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 9
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:46:03 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 913ms on host 10.0.0.5",
+        "2026-11-18 09:46:04 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.42:443",
+        "2026-11-18 09:46:06 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1173ms on host 10.0.0.5",
+        "2026-11-18 09:46:07 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.26:443",
+        "2026-11-18 09:46:10 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.28:443",
+        "2026-11-18 09:46:13 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 936ms on host 10.0.0.5",
+        "2026-11-18 09:46:24 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1502ms on host 10.0.0.5",
+        "2026-11-18 09:46:32 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 897ms on host 10.0.0.5",
+        "2026-11-18 09:46:36 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.65:443",
+        "2026-11-18 09:46:37 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 976ms on host 10.0.0.5",
+        "2026-11-18 09:46:46 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.21:443",
+        "2026-11-18 09:46:52 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1449ms on host 10.0.0.5",
+        "2026-11-18 09:46:53 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1069ms on host 10.0.0.5",
+        "2026-11-18 09:46:59 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1079ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-023",
+      "time_window": "2026-11-18 09:47:00 to 09:48:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 79,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 11
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:47:02 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1029ms on host 10.0.0.5",
+        "2026-11-18 09:47:03 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.47:443",
+        "2026-11-18 09:47:23 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1331ms on host 10.0.0.5",
+        "2026-11-18 09:47:25 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1219ms on host 10.0.0.5",
+        "2026-11-18 09:47:30 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1413ms on host 10.0.0.5",
+        "2026-11-18 09:47:36 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1209ms on host 10.0.0.5",
+        "2026-11-18 09:47:38 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1538ms on host 10.0.0.5",
+        "2026-11-18 09:47:40 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1582ms on host 10.0.0.5",
+        "2026-11-18 09:47:42 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 953ms on host 10.0.0.5",
+        "2026-11-18 09:47:44 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1321ms on host 10.0.0.5",
+        "2026-11-18 09:47:48 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 865ms on host 10.0.0.5",
+        "2026-11-18 09:47:48 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.41:443",
+        "2026-11-18 09:47:50 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1470ms on host 10.0.0.5",
+        "2026-11-18 09:47:54 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.70:443",
+        "2026-11-18 09:47:56 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.34:443"
+      ]
+    },
+    {
+      "incident_id": "INC-024",
+      "time_window": "2026-11-18 09:49:00 to 09:50:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 78,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 7
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:49:00 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1267ms on host 10.0.0.5",
+        "2026-11-18 09:49:11 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.19:443",
+        "2026-11-18 09:49:15 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.78:443",
+        "2026-11-18 09:49:25 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1314ms on host 10.0.0.5",
+        "2026-11-18 09:49:27 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 1243ms on host 10.0.0.5",
+        "2026-11-18 09:49:35 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1110ms on host 10.0.0.5",
+        "2026-11-18 09:49:38 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.10:443",
+        "2026-11-18 09:49:42 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1100ms on host 10.0.0.5",
+        "2026-11-18 09:49:43 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.25:443",
+        "2026-11-18 09:49:51 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1117ms on host 10.0.0.5",
+        "2026-11-18 09:49:53 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1408ms on host 10.0.0.5",
+        "2026-11-18 09:49:57 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.18:443"
+      ]
+    },
+    {
+      "incident_id": "INC-025",
+      "time_window": "2026-11-18 09:50:00 to 09:51:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (6 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (6)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 77,
+        "error_count": 6,
+        "critical_count": 0,
+        "warning_count": 10
+      },
+      "detector_triggers": "[Rule] High error count (6)",
+      "sample_logs": [
+        "2026-11-18 09:50:01 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.30:443",
+        "2026-11-18 09:50:09 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.55:443",
+        "2026-11-18 09:50:16 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1481ms on host 10.0.0.5",
+        "2026-11-18 09:50:17 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.48:443",
+        "2026-11-18 09:50:18 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1111ms on host 10.0.0.5",
+        "2026-11-18 09:50:20 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.16:443",
+        "2026-11-18 09:50:28 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1478ms on host 10.0.0.5",
+        "2026-11-18 09:50:30 WARN [api-gateway] Slow query execution: SELECT * FROM analytics took 944ms on host 10.0.0.5",
+        "2026-11-18 09:50:31 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.19:443",
+        "2026-11-18 09:50:34 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1401ms on host 10.0.0.5",
+        "2026-11-18 09:50:38 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1304ms on host 10.0.0.5",
+        "2026-11-18 09:50:41 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 968ms on host 10.0.0.5",
+        "2026-11-18 09:50:44 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 819ms on host 10.0.0.5",
+        "2026-11-18 09:50:45 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.26:443",
+        "2026-11-18 09:50:50 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1061ms on host 10.0.0.5"
+      ]
+    },
+    {
+      "incident_id": "INC-026",
+      "time_window": "2026-11-18 09:54:00 to 09:55:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (9 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (9)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 78,
+        "error_count": 9,
+        "critical_count": 0,
+        "warning_count": 6
+      },
+      "detector_triggers": "[Rule] High error count (9)",
+      "sample_logs": [
+        "2026-11-18 09:54:02 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.36:443",
+        "2026-11-18 09:54:12 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1390ms on host 10.0.0.5",
+        "2026-11-18 09:54:15 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1510ms on host 10.0.0.5",
+        "2026-11-18 09:54:17 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.13:443",
+        "2026-11-18 09:54:29 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.46:443",
+        "2026-11-18 09:54:33 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.59:443",
+        "2026-11-18 09:54:35 WARN [auth-service] Slow query execution: SELECT * FROM analytics took 1148ms on host 10.0.0.5",
+        "2026-11-18 09:54:41 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 892ms on host 10.0.0.5",
+        "2026-11-18 09:54:44 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 915ms on host 10.0.0.5",
+        "2026-11-18 09:54:48 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.29:443",
+        "2026-11-18 09:54:49 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1558ms on host 10.0.0.5",
+        "2026-11-18 09:54:49 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.57:443",
+        "2026-11-18 09:54:50 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.66:443",
+        "2026-11-18 09:54:53 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.58:443",
+        "2026-11-18 09:54:54 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.52:443"
+      ]
+    },
+    {
+      "incident_id": "INC-027",
+      "time_window": "2026-11-18 09:56:00 to 09:57:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (6 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (6)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 78,
+        "error_count": 6,
+        "critical_count": 0,
+        "warning_count": 6
+      },
+      "detector_triggers": "[Rule] High error count (6)",
+      "sample_logs": [
+        "2026-11-18 09:56:01 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1292ms on host 10.0.0.5",
+        "2026-11-18 09:56:09 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 964ms on host 10.0.0.5",
+        "2026-11-18 09:56:11 ERROR [redis-cache] Client aborted request: ECONNRESET on connection 192.168.1.16:443",
+        "2026-11-18 09:56:20 ERROR [worker-pool] Client aborted request: ECONNRESET on connection 192.168.1.42:443",
+        "2026-11-18 09:56:23 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.31:443",
+        "2026-11-18 09:56:24 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.75:443",
+        "2026-11-18 09:56:27 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1030ms on host 10.0.0.5",
+        "2026-11-18 09:56:29 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 1204ms on host 10.0.0.5",
+        "2026-11-18 09:56:31 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 910ms on host 10.0.0.5",
+        "2026-11-18 09:56:37 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1247ms on host 10.0.0.5",
+        "2026-11-18 09:56:41 ERROR [postgres-db] Client aborted request: ECONNRESET on connection 192.168.1.13:443",
+        "2026-11-18 09:56:59 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.25:443"
+      ]
+    },
+    {
+      "incident_id": "INC-028",
+      "time_window": "2026-11-18 09:58:00 to 09:59:00",
+      "title": "Service Anomaly and Error Spike",
+      "severity": "medium",
+      "confidence": "medium",
+      "probable_root_cause": "Statistically significant error spike (5 errors, 0 criticals) violating baseline behavior.",
+      "explanation": "Anomalous window detected by models: [Rule] High error count (5)",
+      "recommended_actions": [
+        "Inspect surrounding server application stacktraces.",
+        "Check recent application deployments or config updates.",
+        "Monitor downstream dependent services for degradation."
+      ],
+      "metrics": {
+        "total_logs": 81,
+        "error_count": 5,
+        "critical_count": 0,
+        "warning_count": 5
+      },
+      "detector_triggers": "[Rule] High error count (5)",
+      "sample_logs": [
+        "2026-11-18 09:58:02 WARN [order-service] Slow query execution: SELECT * FROM analytics took 1001ms on host 10.0.0.5",
+        "2026-11-18 09:58:08 WARN [redis-cache] Slow query execution: SELECT * FROM analytics took 1567ms on host 10.0.0.5",
+        "2026-11-18 09:58:10 WARN [postgres-db] Slow query execution: SELECT * FROM analytics took 1044ms on host 10.0.0.5",
+        "2026-11-18 09:58:11 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.69:443",
+        "2026-11-18 09:58:25 ERROR [api-gateway] Client aborted request: ECONNRESET on connection 192.168.1.45:443",
+        "2026-11-18 09:58:33 WARN [worker-pool] Slow query execution: SELECT * FROM analytics took 1195ms on host 10.0.0.5",
+        "2026-11-18 09:58:35 WARN [payment-service] Slow query execution: SELECT * FROM analytics took 993ms on host 10.0.0.5",
+        "2026-11-18 09:58:44 ERROR [auth-service] Client aborted request: ECONNRESET on connection 192.168.1.27:443",
+        "2026-11-18 09:58:49 ERROR [order-service] Client aborted request: ECONNRESET on connection 192.168.1.42:443",
+        "2026-11-18 09:58:57 ERROR [payment-service] Client aborted request: ECONNRESET on connection 192.168.1.76:443"
       ]
     }
   ],
   "timeline": [
     {
-      "window": "2026-11-18 10:00:00",
-      "total_logs": 8,
-      "errors": 0,
+      "window": "2026-11-18 09:00:00",
+      "total_logs": 82,
+      "errors": 6,
       "criticals": 0,
-      "warnings": 0,
-      "is_anomaly": false,
-      "severity": "NORMAL"
+      "warnings": 5,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
     },
     {
-      "window": "2026-11-18 10:01:00",
-      "total_logs": 5,
-      "errors": 0,
+      "window": "2026-11-18 09:01:00",
+      "total_logs": 81,
+      "errors": 6,
       "criticals": 0,
-      "warnings": 2,
-      "is_anomaly": false,
-      "severity": "NORMAL"
+      "warnings": 8,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
     },
     {
-      "window": "2026-11-18 10:02:00",
-      "total_logs": 4,
-      "errors": 0,
+      "window": "2026-11-18 09:02:00",
+      "total_logs": 87,
+      "errors": 1,
       "criticals": 0,
-      "warnings": 0,
+      "warnings": 14,
       "is_anomaly": false,
-      "severity": "NORMAL"
+      "severity": "LOW"
     },
     {
-      "window": "2026-11-18 10:03:00",
-      "total_logs": 13,
-      "errors": 9,
-      "criticals": 3,
-      "warnings": 1,
+      "window": "2026-11-18 09:03:00",
+      "total_logs": 76,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 7,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:04:00",
+      "total_logs": 77,
+      "errors": 3,
+      "criticals": 0,
+      "warnings": 9,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:05:00",
+      "total_logs": 81,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 10,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:06:00",
+      "total_logs": 78,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 5,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:07:00",
+      "total_logs": 80,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 8,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:08:00",
+      "total_logs": 84,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 10,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:09:00",
+      "total_logs": 80,
+      "errors": 6,
+      "criticals": 0,
+      "warnings": 8,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:10:00",
+      "total_logs": 78,
+      "errors": 6,
+      "criticals": 0,
+      "warnings": 17,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:11:00",
+      "total_logs": 80,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 11,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:12:00",
+      "total_logs": 79,
+      "errors": 39,
+      "criticals": 0,
+      "warnings": 16,
       "is_anomaly": true,
       "severity": "CRITICAL"
     },
     {
-      "window": "2026-11-18 10:04:00",
-      "total_logs": 5,
+      "window": "2026-11-18 09:13:00",
+      "total_logs": 83,
+      "errors": 42,
+      "criticals": 0,
+      "warnings": 15,
+      "is_anomaly": true,
+      "severity": "CRITICAL"
+    },
+    {
+      "window": "2026-11-18 09:14:00",
+      "total_logs": 79,
+      "errors": 36,
+      "criticals": 0,
+      "warnings": 11,
+      "is_anomaly": true,
+      "severity": "CRITICAL"
+    },
+    {
+      "window": "2026-11-18 09:15:00",
+      "total_logs": 85,
+      "errors": 6,
+      "criticals": 0,
+      "warnings": 11,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:16:00",
+      "total_logs": 77,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 3,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:17:00",
+      "total_logs": 80,
+      "errors": 1,
+      "criticals": 0,
+      "warnings": 8,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:18:00",
+      "total_logs": 84,
+      "errors": 2,
+      "criticals": 0,
+      "warnings": 10,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:19:00",
+      "total_logs": 78,
+      "errors": 3,
+      "criticals": 0,
+      "warnings": 8,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:20:00",
+      "total_logs": 80,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 9,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:21:00",
+      "total_logs": 78,
+      "errors": 3,
+      "criticals": 0,
+      "warnings": 11,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:22:00",
+      "total_logs": 79,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 6,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:23:00",
+      "total_logs": 77,
+      "errors": 1,
+      "criticals": 0,
+      "warnings": 10,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:24:00",
+      "total_logs": 78,
+      "errors": 3,
+      "criticals": 0,
+      "warnings": 11,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:25:00",
+      "total_logs": 83,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 5,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:26:00",
+      "total_logs": 77,
+      "errors": 2,
+      "criticals": 0,
+      "warnings": 12,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:27:00",
+      "total_logs": 78,
+      "errors": 1,
+      "criticals": 0,
+      "warnings": 17,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:28:00",
+      "total_logs": 81,
       "errors": 0,
       "criticals": 0,
-      "warnings": 1,
+      "warnings": 14,
       "is_anomaly": false,
       "severity": "NORMAL"
+    },
+    {
+      "window": "2026-11-18 09:29:00",
+      "total_logs": 80,
+      "errors": 1,
+      "criticals": 0,
+      "warnings": 20,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:30:00",
+      "total_logs": 80,
+      "errors": 3,
+      "criticals": 0,
+      "warnings": 6,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:31:00",
+      "total_logs": 75,
+      "errors": 6,
+      "criticals": 0,
+      "warnings": 8,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:32:00",
+      "total_logs": 79,
+      "errors": 0,
+      "criticals": 0,
+      "warnings": 6,
+      "is_anomaly": false,
+      "severity": "NORMAL"
+    },
+    {
+      "window": "2026-11-18 09:33:00",
+      "total_logs": 80,
+      "errors": 8,
+      "criticals": 0,
+      "warnings": 9,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:34:00",
+      "total_logs": 79,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 10,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:35:00",
+      "total_logs": 78,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 11,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:36:00",
+      "total_logs": 83,
+      "errors": 2,
+      "criticals": 0,
+      "warnings": 9,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:37:00",
+      "total_logs": 76,
+      "errors": 2,
+      "criticals": 0,
+      "warnings": 6,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:38:00",
+      "total_logs": 79,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 9,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:39:00",
+      "total_logs": 80,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 7,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:40:00",
+      "total_logs": 78,
+      "errors": 7,
+      "criticals": 0,
+      "warnings": 6,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:41:00",
+      "total_logs": 81,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 7,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:42:00",
+      "total_logs": 74,
+      "errors": 33,
+      "criticals": 17,
+      "warnings": 3,
+      "is_anomaly": true,
+      "severity": "CRITICAL"
+    },
+    {
+      "window": "2026-11-18 09:43:00",
+      "total_logs": 82,
+      "errors": 44,
+      "criticals": 17,
+      "warnings": 4,
+      "is_anomaly": true,
+      "severity": "CRITICAL"
+    },
+    {
+      "window": "2026-11-18 09:44:00",
+      "total_logs": 80,
+      "errors": 31,
+      "criticals": 27,
+      "warnings": 3,
+      "is_anomaly": true,
+      "severity": "CRITICAL"
+    },
+    {
+      "window": "2026-11-18 09:45:00",
+      "total_logs": 81,
+      "errors": 38,
+      "criticals": 24,
+      "warnings": 3,
+      "is_anomaly": true,
+      "severity": "CRITICAL"
+    },
+    {
+      "window": "2026-11-18 09:46:00",
+      "total_logs": 79,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 9,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:47:00",
+      "total_logs": 79,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 11,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:48:00",
+      "total_logs": 79,
+      "errors": 3,
+      "criticals": 0,
+      "warnings": 5,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:49:00",
+      "total_logs": 78,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 7,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:50:00",
+      "total_logs": 77,
+      "errors": 6,
+      "criticals": 0,
+      "warnings": 10,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:51:00",
+      "total_logs": 81,
+      "errors": 3,
+      "criticals": 0,
+      "warnings": 12,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:52:00",
+      "total_logs": 78,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 5,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:53:00",
+      "total_logs": 82,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 9,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:54:00",
+      "total_logs": 78,
+      "errors": 9,
+      "criticals": 0,
+      "warnings": 6,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:55:00",
+      "total_logs": 82,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 7,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:56:00",
+      "total_logs": 78,
+      "errors": 6,
+      "criticals": 0,
+      "warnings": 6,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:57:00",
+      "total_logs": 78,
+      "errors": 3,
+      "criticals": 0,
+      "warnings": 8,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 09:58:00",
+      "total_logs": 81,
+      "errors": 5,
+      "criticals": 0,
+      "warnings": 5,
+      "is_anomaly": true,
+      "severity": "MEDIUM"
+    },
+    {
+      "window": "2026-11-18 09:59:00",
+      "total_logs": 80,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 3,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 10:00:00",
+      "total_logs": 86,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 10,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 10:01:00",
+      "total_logs": 81,
+      "errors": 4,
+      "criticals": 0,
+      "warnings": 8,
+      "is_anomaly": false,
+      "severity": "LOW"
+    },
+    {
+      "window": "2026-11-18 10:02:00",
+      "total_logs": 58,
+      "errors": 2,
+      "criticals": 0,
+      "warnings": 5,
+      "is_anomaly": false,
+      "severity": "LOW"
     }
   ],
   "top_templates": [
     {
-      "event_id": "E004",
-      "template": "GET /api/v1/health <<NUM>> OK (latency <<DURATION>>)",
-      "count": 6
-    },
-    {
-      "event_id": "E003",
-      "template": "User <<NUM>> authenticated successfully from <<IP>>",
-      "count": 5
-    },
-    {
-      "event_id": "E011",
-      "template": "Connection timeout to database server <<IP>> after <<DURATION>>",
-      "count": 3
+      "event_id": "E002",
+      "template": "Heartbeat check passed: service=order-service healthy=true active_tasks=<<NUM>>",
+      "count": 1651
     },
     {
       "event_id": "E005",
-      "template": "POST /api/v1/orders <<NUM>> Created (latency <<DURATION>>)",
-      "count": 2
+      "template": "User session refreshed successfully for usr_6622",
+      "count": 564
     },
     {
-      "event_id": "E014",
-      "template": "Service worker thread #<<NUM>> crashed: unhandled DBConnectionError",
-      "count": 2
-    },
-    {
-      "event_id": "E006",
-      "template": "Periodic heartbeat ping successful",
-      "count": 2
-    },
-    {
-      "event_id": "E012",
-      "template": "Failed to process request POST /api/v1/orders: <<NUM>> Internal Server Error",
-      "count": 2
-    },
-    {
-      "event_id": "E002",
-      "template": "Database connection pool initialized with <<NUM>> connections",
-      "count": 1
+      "event_id": "E003",
+      "template": "Cache hit key=session:usr_8223 (ttl=404s)",
+      "count": 551
     },
     {
       "event_id": "E001",
-      "template": "Server process started with PID <<NUM>>",
-      "count": 1
+      "template": "Handled GET /api/v1/health for usr_2251 from <<IP>> status=<<NUM>> latency=<<DURATION>>",
+      "count": 539
+    },
+    {
+      "event_id": "E004",
+      "template": "Executed statement: SELECT * FROM users in <<DURATION>>",
+      "count": 502
+    },
+    {
+      "event_id": "E006",
+      "template": "Slow query execution: SELECT * FROM analytics took <<DURATION>> on host <<IP>>",
+      "count": 475
+    },
+    {
+      "event_id": "E007",
+      "template": "Client aborted request: ECONNRESET on connection <<IP>>",
+      "count": 231
     },
     {
       "event_id": "E008",
-      "template": "Query slow: SELECT * FROM transactions executed in <<DURATION>>",
-      "count": 1
+      "template": "Failed authentication attempt for user 'admin' from <<IP>>: invalid credentials (attempt #<<NUM>>)",
+      "count": 144
+    },
+    {
+      "event_id": "E010",
+      "template": "Background queue processing delayed: worker thread pool saturated (queue_depth=<<NUM>>)",
+      "count": 82
+    },
+    {
+      "event_id": "E012",
+      "template": "Connection pool exhausted: active=<<NUM>>/<<NUM>>, pending_queue=<<NUM>>, timeout exceeded (<<DURATION>>)",
+      "count": 68
     }
   ]
 }
