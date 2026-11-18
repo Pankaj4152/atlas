@@ -1,14 +1,3 @@
-"""
-FastAPI Main Application.
-REST API for Atlas Server Log Analyzer.
-Endpoints:
-- POST /api/upload
-- POST /api/analyze/{file_id}
-- GET /api/reports
-- GET /api/reports/{id}
-- GET /api/reports/{id}/pdf
-"""
-
 import os
 import uuid
 import shutil
@@ -16,7 +5,8 @@ from pathlib import Path
 from typing import List, Optional
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse, JSONResponse
+from fastapi.responses import StreamingResponse, JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from backend.database import (
     init_db,
@@ -41,7 +31,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Enable CORS for React frontend (Vite defaults to 5173 or 3000)
+# Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -51,8 +41,8 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-def read_root():
+@app.get("/api/health")
+def health_check():
     return {
         "service": "Atlas Server Log Analyzer",
         "status": "online",
@@ -156,3 +146,26 @@ async def download_report_pdf(report_id: str):
         media_type="application/pdf",
         headers={"Content-Disposition": f"attachment; filename={fname}"},
     )
+
+
+# Serve React production build if available (single unified Render deployment)
+FRONTEND_DIST = Path("frontend/dist")
+if FRONTEND_DIST.exists():
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIST / "assets"), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        requested_file = FRONTEND_DIST / full_path
+        if requested_file.is_file():
+            return FileResponse(requested_file)
+        # SPA Fallback to index.html
+        return FileResponse(FRONTEND_DIST / "index.html")
+else:
+    @app.get("/")
+    def read_root():
+        return {
+            "service": "Atlas Server Log Analyzer",
+            "status": "online",
+            "version": "1.0.0",
+            "frontend": "Run 'cd frontend && npm run build' to bundle frontend with FastAPI.",
+        }
