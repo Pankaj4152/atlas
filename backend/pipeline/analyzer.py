@@ -56,9 +56,23 @@ class LogAnalysisPipeline:
 
         if total_logs == 0:
             return {
-                "status": "empty",
-                "message": "Log file contained no parsable log entries.",
-                "total_logs": 0,
+                "file_info": {
+                    "file_name": path.name,
+                    "file_size_kb": round(path.stat().st_size / 1024, 2) if path.exists() else 0,
+                    "analyzed_at": datetime.now().isoformat(),
+                    "duration_seconds": 0.0,
+                },
+                "summary": {
+                    "total_logs": 0,
+                    "total_windows": 0,
+                    "flagged_windows": 0,
+                    "critical_incidents": 0,
+                    "total_incidents": 0,
+                    "severity_distribution": {"CRITICAL": 0, "ERROR": 0, "WARNING": 0, "INFO": 0, "DEBUG": 0},
+                },
+                "incidents": [],
+                "timeline": [],
+                "top_templates": [],
             }
 
         # Step 2: Extract templates and flag rare events
@@ -96,22 +110,23 @@ class LogAnalysisPipeline:
                 "sample_logs": ctx.sample_raw_logs,
             })
 
-        # Calculate high-level summary statistics
+        # Calculate high-level summary statistics safely
         level_counts = df_raw["level"].value_counts().to_dict()
-        flagged_windows_count = int(detected_df["is_anomaly"].sum())
+        flagged_windows_count = int(detected_df["is_anomaly"].sum()) if (not detected_df.empty and "is_anomaly" in detected_df.columns) else 0
         critical_incidents_count = sum(1 for inc in incidents if inc["severity"] == "critical")
 
         timeline = []
-        for _, row in detected_df.iterrows():
-            timeline.append({
-                "window": str(row["window_start"]),
-                "total_logs": int(row["total_logs"]),
-                "errors": int(row["error_count"]),
-                "criticals": int(row["critical_count"]),
-                "warnings": int(row["warning_count"]),
-                "is_anomaly": bool(row["is_anomaly"]),
-                "severity": str(row["severity"]),
-            })
+        if not detected_df.empty:
+            for _, row in detected_df.iterrows():
+                timeline.append({
+                    "window": str(row.get("window_start", "")),
+                    "total_logs": int(row.get("total_logs", 0)),
+                    "errors": int(row.get("error_count", 0)),
+                    "criticals": int(row.get("critical_count", 0)),
+                    "warnings": int(row.get("warning_count", 0)),
+                    "is_anomaly": bool(row.get("is_anomaly", False)),
+                    "severity": str(row.get("severity", "NORMAL")),
+                })
 
         duration_sec = round((datetime.now() - start_time).total_seconds(), 2)
 
@@ -148,21 +163,3 @@ class LogAnalysisPipeline:
                 json.dump(report, f, indent=2)
 
         return report
-
-
-if __name__ == "__main__":
-    import sys
-    log_file = sys.argv[1] if len(sys.argv) > 1 else "sample_logs/sample_server.log"
-    out_file = "sample_logs/sample_analysis_report.json"
-    pipeline = LogAnalysisPipeline()
-    print(f"Analyzing {log_file}...")
-    res = pipeline.analyze_file(log_file, output_json_path=out_file)
-    print("\n--- ANALYSIS COMPLETE ---")
-    print(f"Total Logs: {res['summary']['total_logs']}")
-    print(f"Flagged Windows: {res['summary']['flagged_windows']}")
-    print(f"Incidents Diagnosed: {len(res['incidents'])}")
-    for inc in res["incidents"]:
-        print(f"\n[{inc['severity'].upper()}] {inc['title']}")
-        print(f"Cause: {inc['probable_root_cause']}")
-        print(f"Recommended Actions: {inc['recommended_actions'][:2]}")
-    print(f"\nDetailed report saved to: {out_file}")
