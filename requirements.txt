@@ -7,4 +7,6 @@ drain3>=0.9.11
 python-dateutil>=2.8.2
 pydantic>=2.6.0
 python-dotenv>=1.0.0
+python-multipart>=0.0.9
+reportlab>=4.1.0
 pytest>=8.0.0
