@@ -1,13 +1,14 @@
 import React from 'react';
+import SectionEyebrow from '../components/SectionEyebrow';
 import {
   ArrowLeft,
+  Clock,
+  Download,
   AlertOctagon,
   CheckCircle,
-  Clock,
-  Sparkles,
   Terminal,
   ShieldAlert,
-  FileCheck,
+  Server
 } from 'lucide-react';
 
 export default function ReportPage({ incident, reportId, onBack }) {
@@ -15,151 +16,156 @@ export default function ReportPage({ incident, reportId, onBack }) {
 
   const isCrit = incident.severity === 'critical';
   const isHigh = incident.severity === 'high';
-  const badgeClass = isCrit
-    ? 'bg-red-500/10 text-red-400 border-red-500/20'
-    : isHigh
-    ? 'bg-orange-500/10 text-orange-400 border-orange-500/20'
-    : 'bg-amber-500/10 text-amber-400 border-amber-500/20';
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      {/* Navigation */}
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      {/* Return to Desk */}
       <button
         onClick={onBack}
-        className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white mb-6 transition"
+        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#595959] hover:text-black mb-6 transition"
       >
-        <ArrowLeft className="w-4 h-4" />
-        Back to Dashboard
+        <ArrowLeft className="w-3.5 h-3.5 text-[#fa9000]" />
+        <span>Return to Dashboard</span>
       </button>
 
-      {/* Incident Header Banner */}
-      <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-sm mb-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider border ${badgeClass}`}>
-                {incident.severity}
+      {/* Incident Lead Article Banner */}
+      <div className="border-b-2 border-black pb-6 mb-8">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+          <div className="flex items-center gap-2">
+            {isCrit ? (
+              <span className="bg-[#c31833] text-white text-[11px] font-black px-2 py-0.5 rounded-[2px] uppercase tracking-wider">
+                CRITICAL INVESTIGATION
               </span>
-              <span className="text-xs text-slate-500">Incident {incident.incident_id}</span>
-              <span className="text-xs text-slate-500">• Confidence: {incident.confidence}</span>
-            </div>
-            <h1 className="text-2xl font-bold text-white mb-2">{incident.title}</h1>
-            <div className="flex items-center gap-2 text-xs text-slate-400">
-              <Clock className="w-3.5 h-3.5 text-blue-400" />
-              <span>Time Window: {incident.time_window}</span>
-            </div>
+            ) : isHigh ? (
+              <span className="bg-[#fa9000] text-black text-[11px] font-black px-2 py-0.5 rounded-[2px] uppercase tracking-wider">
+                HIGH PRIORITY
+              </span>
+            ) : (
+              <span className="bg-black text-white text-[11px] font-black px-2 py-0.5 rounded-[2px] uppercase tracking-wider">
+                FLAGGED ANOMALY
+              </span>
+            )}
+            <span className="text-xs text-[#595959] font-medium uppercase tracking-wide">
+              DOSSIER ID: {incident.incident_id} • CONFIDENCE: {incident.confidence?.toUpperCase()}
+            </span>
           </div>
 
           {reportId && (
             <a
               href={`/api/reports/${reportId}/pdf`}
               download
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition shadow-sm whitespace-nowrap self-start md:self-center"
+              className="inline-flex items-center gap-2 bg-black hover:bg-[#333333] text-white text-xs font-normal px-4 py-2 rounded-[18px] transition"
             >
-              <FileCheck className="w-4 h-4" />
-              Export PDF
+              <Download className="w-3.5 h-3.5 text-[#fa9000]" />
+              <span>Export Incident PDF</span>
             </a>
           )}
         </div>
-      </div>
 
-      {/* Anomaly Metrics Overview */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-          <div className="text-xs text-slate-500 uppercase font-medium">Window Logs</div>
-          <div className="text-2xl font-bold text-white mt-1">{incident.metrics?.total_logs || 0}</div>
-        </div>
-        <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-          <div className="text-xs text-slate-500 uppercase font-medium">Errors Observed</div>
-          <div className="text-2xl font-bold text-red-400 mt-1">{incident.metrics?.error_count || 0}</div>
-        </div>
-        <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-          <div className="text-xs text-slate-500 uppercase font-medium">Critical Crashes</div>
-          <div className="text-2xl font-bold text-red-500 mt-1">{incident.metrics?.critical_count || 0}</div>
-        </div>
-        <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-          <div className="text-xs text-slate-500 uppercase font-medium">Warnings</div>
-          <div className="text-2xl font-bold text-amber-400 mt-1">{incident.metrics?.warning_count || 0}</div>
+        <h1 className="text-3xl md:text-5xl font-bold text-black tracking-tight leading-tight mb-2">
+          {incident.title}
+        </h1>
+
+        <div className="flex items-center gap-2 text-xs text-[#595959]">
+          <Clock className="w-3.5 h-3.5 text-[#fa9000]" />
+          <span>Observed Window: <strong>{incident.time_window}</strong></span>
         </div>
       </div>
 
-      {/* Model Detection Evidence */}
-      {incident.detector_triggers && (
-        <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 mb-6">
-          <div className="flex items-center gap-2 text-sm font-semibold text-slate-300 mb-2">
-            <ShieldAlert className="w-4 h-4 text-blue-400" />
-            Detection Evidence (Rule + Z-Score + Isolation Forest)
-          </div>
-          <p className="text-xs text-slate-400 font-mono bg-slate-950 p-3 rounded-lg border border-slate-800/80">
-            {incident.detector_triggers}
-          </p>
+      {/* Metrics Row (Flat white with hairline rules) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 border border-[#d8d8d8] p-4 mb-8 bg-[#f0f0f0] divide-x divide-[#d8d8d8]">
+        <div className="px-3">
+          <div className="text-[11px] font-bold text-[#595959] uppercase tracking-wider">Window Volume</div>
+          <div className="text-2xl font-bold text-black mt-0.5">{incident.metrics?.total_logs || 0}</div>
         </div>
-      )}
-
-      {/* AI Root-Cause Analysis */}
-      <div className="p-6 rounded-2xl bg-gradient-to-b from-blue-950/20 to-slate-900/60 border border-blue-500/20 mb-6">
-        <div className="flex items-center gap-2 text-sm font-semibold text-blue-400 mb-3">
-          <Sparkles className="w-4 h-4" />
-          LLM Root-Cause Diagnosis
+        <div className="px-3">
+          <div className="text-[11px] font-bold text-[#595959] uppercase tracking-wider">Observed Errors</div>
+          <div className="text-2xl font-bold text-[#c31833] mt-0.5">{incident.metrics?.error_count || 0}</div>
         </div>
+        <div className="px-3">
+          <div className="text-[11px] font-bold text-[#595959] uppercase tracking-wider">Critical Crashes</div>
+          <div className="text-2xl font-bold text-[#c31833] mt-0.5">{incident.metrics?.critical_count || 0}</div>
+        </div>
+        <div className="px-3">
+          <div className="text-[11px] font-bold text-[#595959] uppercase tracking-wider">Warnings Recorded</div>
+          <div className="text-2xl font-bold text-black mt-0.5">{incident.metrics?.warning_count || 0}</div>
+        </div>
+      </div>
 
-        <div className="space-y-4">
+      {/* Grid: 2 Columns */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        {/* Left Column (2 Cols) */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* AI Root Cause Section */}
           <div>
-            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Probable Technical Cause
-            </h4>
-            <p className="text-sm font-medium text-slate-200">
-              {incident.probable_root_cause}
-            </p>
+            <SectionEyebrow label="AI SRE ROOT CAUSE DIAGNOSIS" />
+            <div className="border-l-2 border-[#fa9000] pl-4 py-1 mb-4">
+              <h3 className="text-lg font-bold text-black mb-1">
+                Probable Technical Failure
+              </h3>
+              <p className="text-base text-[#333333] leading-relaxed">
+                {incident.probable_root_cause}
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#d8d8d8] p-5">
+              <h4 className="text-xs font-bold text-[#595959] uppercase tracking-wider mb-2">
+                Diagnostic Narrative & Technical Context
+              </h4>
+              <p className="text-sm text-[#333333] leading-relaxed">
+                {incident.explanation}
+              </p>
+            </div>
           </div>
 
+          {/* Corrective Actions */}
+          {incident.recommended_actions && incident.recommended_actions.length > 0 && (
+            <div>
+              <SectionEyebrow label="RECOMMENDED CORRECTIVE PROTOCOLS" />
+              <div className="border border-[#d8d8d8] divide-y divide-[#d8d8d8] bg-white">
+                {incident.recommended_actions.map((act, i) => (
+                  <div key={i} className="p-4 flex items-start gap-3">
+                    <span className="w-5 h-5 rounded-full bg-black text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {i + 1}
+                    </span>
+                    <span className="text-sm text-[#000000] leading-snug">{act}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Rail: Evidence & Traces */}
+        <div className="lg:border-l lg:border-[#d8d8d8] lg:pl-6 space-y-8">
+          {/* Machine Learning Evidence */}
           <div>
-            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Diagnostic Summary
-            </h4>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              {incident.explanation}
-            </p>
+            <SectionEyebrow label="DETECTION EVIDENCE" />
+            <div className="bg-[#f0f0f0] p-4 border border-[#d8d8d8]">
+              <span className="text-[11px] font-bold text-[#595959] uppercase block mb-1">
+                Consensus Triggers (Rule + Z-Score + Isolation Forest)
+              </span>
+              <p className="font-mono text-xs text-[#000000] leading-relaxed">
+                {incident.detector_triggers || 'Consensus outlier detection.'}
+              </p>
+            </div>
           </div>
+
+          {/* Log Evidence */}
+          {incident.sample_logs && incident.sample_logs.length > 0 && (
+            <div>
+              <SectionEyebrow label="SUSPICIOUS LOG TELEMETRY" />
+              <div className="bg-[#181818] p-4 text-[#dddddd] font-mono text-[11px] border border-[#333333] max-h-80 overflow-y-auto space-y-1.5 rounded-[2px]">
+                {incident.sample_logs.map((log, i) => (
+                  <div key={i} className="leading-snug break-all pb-1 border-b border-[#323232]">
+                    {log}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Recommended SRE Actions */}
-      {incident.recommended_actions && incident.recommended_actions.length > 0 && (
-        <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 mb-6">
-          <div className="flex items-center gap-2 text-sm font-semibold text-emerald-400 mb-4">
-            <CheckCircle className="w-4 h-4" />
-            Recommended Corrective Actions
-          </div>
-          <div className="space-y-2.5">
-            {incident.recommended_actions.map((act, i) => (
-              <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-slate-800/40 border border-slate-800 text-xs text-slate-200">
-                <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">
-                  {i + 1}
-                </span>
-                <span>{act}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Raw Suspicious Logs Preview */}
-      {incident.sample_logs && incident.sample_logs.length > 0 && (
-        <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
-          <div className="flex items-center gap-2 text-sm font-semibold text-slate-300 mb-3">
-            <Terminal className="w-4 h-4 text-purple-400" />
-            Suspicious Log Lines from Anomalous Window
-          </div>
-          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-[11px] text-slate-300 space-y-1 overflow-x-auto max-h-64">
-            {incident.sample_logs.map((log, i) => (
-              <div key={i} className="leading-relaxed whitespace-pre">
-                {log}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

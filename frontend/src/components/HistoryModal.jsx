@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { History, X, Clock, FileText, ChevronRight, Loader2 } from 'lucide-react';
+import SectionEyebrow from './SectionEyebrow';
+import { X, Clock, FileText, ChevronRight, Loader2 } from 'lucide-react';
 
 export default function HistoryModal({ isOpen, onClose, onSelectReport }) {
   const [reports, setReports] = useState([]);
@@ -45,54 +46,56 @@ export default function HistoryModal({ isOpen, onClose, onSelectReport }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-xl rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl p-6 text-slate-100">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
-          <div className="flex items-center gap-2">
-            <History className="w-5 h-5 text-blue-400" />
-            <h3 className="text-lg font-bold text-white">Past Analysis Runs</h3>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-none">
+      <div className="w-full max-w-2xl bg-white border border-black p-6 shadow-none">
+        <div className="flex items-center justify-between pb-3 border-b border-[#000000] mb-4">
+          <div className="flex items-center">
+            <span className="w-2 h-5 bg-[#fa9000] mr-2.5 inline-block" />
+            <h3 className="text-xl font-bold uppercase tracking-wider text-black">
+              ARCHIVED DISPATCH RUNS
+            </h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+            className="p-1 text-[#595959] hover:text-black transition"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {loading ? (
-          <div className="py-12 flex flex-col items-center justify-center text-slate-400 text-sm gap-2">
-            <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
-            <span>Loading past reports...</span>
+          <div className="py-12 flex flex-col items-center justify-center text-[#595959] text-sm gap-2">
+            <Loader2 className="w-6 h-6 animate-spin text-[#fa9000]" />
+            <span>Retrieving incident records from database...</span>
           </div>
         ) : reports.length === 0 ? (
-          <div className="py-10 text-center text-slate-500 text-sm">
-            No previous reports found. Upload and analyze a file first.
+          <div className="py-10 text-center text-[#595959] text-sm">
+            No archived logs found. Ingest and analyze a log stream first.
           </div>
         ) : (
-          <div className="space-y-2.5 max-h-96 overflow-y-auto pr-1">
+          <div className="space-y-0 divide-y divide-[#d8d8d8] max-h-96 overflow-y-auto pr-1 border border-[#d8d8d8]">
             {reports.map((r) => (
               <div
                 key={r.id}
                 onClick={() => handleSelect(r.id)}
-                className="p-3.5 rounded-xl bg-slate-800/40 hover:bg-slate-800 border border-slate-800/80 hover:border-slate-700 transition cursor-pointer flex items-center justify-between"
+                className="p-3.5 hover:bg-[#f0f0f0] transition cursor-pointer flex items-center justify-between group"
               >
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 mt-0.5">
-                    <FileText className="w-4 h-4" />
+                  <div className="p-2 bg-[#f0f0f0] text-black border border-[#d8d8d8] mt-0.5">
+                    <FileText className="w-4 h-4 text-[#fa9000]" />
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-white flex items-center gap-2">
-                      <span>{r.filename}</span>
+                    <div className="text-sm font-bold text-black flex items-center gap-2">
+                      <span className="group-hover:text-[#fa9000] transition-colors">{r.filename}</span>
                       {r.critical_incidents > 0 && (
-                        <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-red-500/10 text-red-400 border border-red-500/20">
-                          {r.critical_incidents} CRIT
+                        <span className="bg-[#c31833] text-white text-[10px] font-black px-1.5 py-0.2 rounded-[2px] uppercase">
+                          {r.critical_incidents} CRITICAL
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-slate-400 mt-1">
+                    <div className="flex items-center gap-3 text-xs text-[#595959] mt-1">
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
+                        <Clock className="w-3 h-3 text-[#595959]" />
                         {r.created_at ? r.created_at.slice(0, 16).replace('T', ' ') : ''}
                       </span>
                       <span>•</span>
@@ -103,7 +106,7 @@ export default function HistoryModal({ isOpen, onClose, onSelectReport }) {
                   </div>
                 </div>
 
-                <ChevronRight className="w-4 h-4 text-slate-500" />
+                <ChevronRight className="w-4 h-4 text-[#595959] group-hover:translate-x-1 transition-transform" />
               </div>
             ))}
           </div>

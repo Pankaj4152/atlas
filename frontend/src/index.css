@@ -1,9 +1,50 @@
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #0b0f19;
-  color: #f1f5f9;
-  min-height: 100vh;
+@layer base {
+  :root {
+    --color-primary: #fa9000;
+    --color-live-red: #c31833;
+    --color-ink: #000000;
+    --color-charcoal: #333333;
+    --color-slate: #595959;
+    --color-canvas: #ffffff;
+    --color-soft: #f0f0f0;
+    --color-hairline: #d8d8d8;
+    --color-silver: #bebebe;
+    --color-indigo: #272967;
+    --color-night-navy: #100e2f;
+    --color-network-canvas: #181818;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom editorial typography & eyebrow bar utilities */
+.eyebrow-bar {
+  display: inline-block;
+  width: 8px;
+  height: 20px;
+  background-color: #fa9000;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.breaking-pulse {
+  animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
